@@ -1,0 +1,118 @@
+#include <iostream>
+#include <Windows.h>
+#include <bitset>
+using namespace std;
+
+int main()
+{
+	
+	setlocale(0, "");
+	HANDLE N = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(N, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+	cout << "Размер памяти (в байтах), выделенный под типы данных: " << endl;
+	SetConsoleTextAttribute(N, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+	cout << "int: " << sizeof(int) << endl;
+	cout << "short int: " << sizeof(short int) << endl;
+	cout << "long int: " << sizeof(long int) << endl;
+	cout << "float: " << sizeof(float) << endl;
+	cout << "double: " << sizeof(double) << endl;
+	cout << "long double: " << sizeof(long double) << endl;
+	cout << "char: " << sizeof(char) << endl;
+	cout << "bool: " << sizeof(bool) << endl;
+	bool answer;
+	int x, num_1; 
+	int quantity = 32;
+	int mask = 1 << (quantity-1);
+	cout << endl;
+	anothertry:
+	cout << "Введите значение int: " << endl;
+	SetConsoleTextAttribute(N, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+	cin >> x;
+	SetConsoleTextAttribute(N, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	for (int i = 1; i <= quantity; i++)
+	{
+		
+		cout << (x & mask ? '1' : '0');
+		x <<= 1;
+	
+		if (i % 8 == 0)
+		{
+			cout << " ";
+		}
+		if ((i %31) == 1)
+		{
+			cout << " ";
+			SetConsoleTextAttribute(N, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+		}
+	}
+	SetConsoleTextAttribute(N, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	cout << endl;
+
+	union fl {
+		float a1;
+		int a;
+	
+	};
+	cout << endl;
+	cout << "Введите значение float: " << endl;
+	fl u;
+	SetConsoleTextAttribute(N, FOREGROUND_RED | FOREGROUND_GREEN |FOREGROUND_INTENSITY);
+	cin >>  u.a1;
+	SetConsoleTextAttribute(N, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	for (int i = 1; i <= quantity; i++)
+	{
+		cout << (u.a & mask ? '1' : '0');
+		u.a <<= 1;
+		
+		if ((i % 31) == 1)
+		{
+			cout << " ";
+			SetConsoleTextAttribute(N, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+
+		}
+		if (i == 9)
+		{
+			cout << " ";
+			SetConsoleTextAttribute(N, FOREGROUND_RED | FOREGROUND_INTENSITY);
+		}
+	}
+	SetConsoleTextAttribute(N, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	cout << endl;
+
+	union fl_1 {
+		double a2;
+		long long b;
+	};
+	cout << endl;
+	cout << "Введите значение double: " << endl;
+	fl_1 y;
+	SetConsoleTextAttribute(N, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+	cin >> y.a2;
+	SetConsoleTextAttribute(N, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	auto num = bitset<64>(1);
+	for (int i = 63; i >= 0; i--)
+	{
+		cout << bitset<64>(y.b)[i];
+		
+		if (i == 63) {
+			cout << " ";
+			SetConsoleTextAttribute(N, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+		}
+		if (i == 52) {
+			cout << " ";
+			SetConsoleTextAttribute(N, FOREGROUND_RED | FOREGROUND_INTENSITY);
+		}
+	}
+	
+
+	
+	SetConsoleTextAttribute(N, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	cout << endl;
+	cout << endl;
+	cout << "Хотите попробовать еще раз? (1 или 0)" << endl;
+	cin >> answer;
+	if (answer == 1) {
+		goto anothertry;
+	}
+	return 0;
+} 
